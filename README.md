@@ -6,6 +6,13 @@ Tic Tac Toe game With AI ( Min Max Algo ) and SDL2 for graphics.
     SDL2
     SDL2-devel
 
+### QuickStart
+```console
+$ make prepare
+$ make
+$ make run
+```
+
 ### TODOS
 - [X] Display & Event Loop
 - [X] Capture Mouse Input
