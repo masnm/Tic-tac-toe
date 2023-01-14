@@ -14,19 +14,19 @@ void ai_min_max::populate_input ( board _input ) {
 }
 
 // enum evaluation { eval_first, eval_second, eval_draw, eval_play_more };
-int32_t tic_tac_toe_ai ( ai_min_max *obj, board _board, int32_t depth = 9,
+int32_t tic_tac_toe_ai ( ai_min_max *obj, board _board, int32_t depth = 10,
                          bool maximize = true ) {
+    if ( depth <= 0 ) {
+        return 0;
+    }
     evaluation eval = _board.board_evaluate ();
     switch ( eval ) {
     case eval_first:
+        return INT_MIN;
     case eval_second:
-        if ( maximize )
-            return INT_MIN;
-        else
-            return INT_MAX;
-        break;
+        return INT_MAX;
     case eval_draw:
-        return 10 - depth;
+        return 0;
         break;
     case eval_play_more:
         std::vector<std::pair<int32_t, int32_t>> vp;
@@ -45,7 +45,7 @@ int32_t tic_tac_toe_ai ( ai_min_max *obj, board _board, int32_t depth = 9,
             vtp.emplace_back ( item.first, item.second, ths_cst );
         }
         std::sort ( vtp.begin (), vtp.end (), [] ( auto &l, auto &r ) {
-            return std::get<2> ( l ) < std::get<2> ( r );
+            return std::get<2> ( l ) > std::get<2> ( r );
         } );
         const std::lock_guard<std::mutex> lock ( obj->writing_output );
         if ( maximize ) {

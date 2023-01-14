@@ -50,6 +50,9 @@ int main ( int argc, char **argv ) {
                 if ( current_state == game_waiting_to_start )
                     current_state = next_state ( current_state );
                 if ( e.key.keysym.sym == SDLK_r ) brd.clear ();
+                if ( e.key.keysym.sym == SDLK_e ) {
+                    print_evaluation ( brd.board_evaluate () );
+                }
                 break;
             case SDL_MOUSEBUTTONDOWN:
                 switch ( e.button.button ) {
@@ -67,10 +70,10 @@ int main ( int argc, char **argv ) {
                             ai.start_calculation ();
                         }
                     }
-                    if ( current_player == second ) {
-                        std::cerr << std::boolalpha << ai.done_calculation ()
-                                  << std::endl;
-                    }
+                    // if ( current_player == second ) {
+                    //     std::cerr << std::boolalpha << ai.done_calculation ()
+                    //               << std::endl;
+                    // }
                     break;
                 }
             }

@@ -67,11 +67,12 @@ board &board::operator= ( const board &other ) {
 
 evaluation board::board_evaluate ( void ) {
     bool game = true;
-    for ( auto &_row : data ) {
-        for ( auto &val : _row )
-            if ( val == none || val != _row[0] ) game = false;
-        if ( game && _row[0] == first ) return eval_first;
-        if ( game && _row[0] == second ) return eval_second;
+    for ( int32_t i = 0; i < row; ++i ) {
+        game = true;
+        for ( int32_t j = 0; j < col; ++j )
+            if ( data[i][j] == none || data[i][j] != data[i][0] ) game = false;
+        if ( game && data[i][0] == first ) return eval_first;
+        if ( game && data[i][0] == second ) return eval_second;
     }
     for ( int32_t i = 0; i < row; ++i ) {
         game = true;
