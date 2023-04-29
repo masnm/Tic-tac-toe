@@ -1,6 +1,6 @@
 CC=g++
 cflags= -std=c++17 -Wall -Wextra -pedantic
-objs=obj/my_sdl.o obj/board.o obj/states.o obj/enums.o obj/ai_min_max.o
+objs=obj/my_sdl.o obj/board.o obj/states.o obj/enums.o obj/ai_min_max.o obj/neural_network.o
 # dbg=-fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG -g -DLOCAL
 dbg=-g -ggdb
 libs=-lSDL2
@@ -22,6 +22,9 @@ obj/enums.o: include/enums.h src/enums.cpp
 
 obj/ai_min_max.o: include/ai_min_max.h src/ai_min_max.cpp
 	$(CC) $(cflags) -c src/ai_min_max.cpp -o obj/ai_min_max.o
+
+obj/neural_network.o: include/neural_network.h src/neural_network.cpp
+	$(CC) $(cflags) -c src/neural_network.cpp -o obj/neural_network.o
 
 run: bin/game.out
 	bin/game.out

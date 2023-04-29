@@ -36,6 +36,9 @@ int main ( int argc, char **argv ) {
     game_states current_state = game_waiting_to_start;
     ai_min_max ai;
 
+    // ai.populate_input ( brd );
+    // ai.start_calculation ();
+
     bool done = false;
     SDL_Event e;
     while ( !done ) {
@@ -49,7 +52,12 @@ int main ( int argc, char **argv ) {
             case SDL_KEYDOWN:
                 if ( current_state == game_waiting_to_start )
                     current_state = next_state ( current_state );
-                if ( e.key.keysym.sym == SDLK_r ) brd.clear ();
+                if ( e.key.keysym.sym == SDLK_r ) {
+                    current_player = first;
+                    brd.clear ();
+                    // ai.populate_input ( brd );
+                    // ai.start_calculation ();
+                }
                 if ( e.key.keysym.sym == SDLK_e ) {
                     print_evaluation ( brd.board_evaluate () );
                 }

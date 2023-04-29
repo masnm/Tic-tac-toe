@@ -35,6 +35,7 @@ int32_t tic_tac_toe_ai ( ai_min_max *obj, board _board, int32_t depth = 10,
                 if ( _board.data[i][j] == none ) vp.emplace_back ( i, j );
             }
         }
+        // std::random_shuffle ( vp.begin (), vp.end () );
         std::vector<std::tuple<int32_t, int32_t, int32_t>> vtp;
         for ( auto &item : vp ) {
             board nboard = _board;
@@ -49,13 +50,26 @@ int32_t tic_tac_toe_ai ( ai_min_max *obj, board _board, int32_t depth = 10,
         } );
         const std::lock_guard<std::mutex> lock ( obj->writing_output );
         if ( maximize ) {
+            // if ( std::get<2> ( vtp.back () ) == INT_MIN ) {
+            //     // chose this because ai is loosing
+            //     obj->output.first = std::get<0> ( vtp.back () );
+            //     obj->output.second = std::get<1> ( vtp.back () );
+            //     return std::get<2> ( vtp.back () );
+            // } else {
             obj->output.first = std::get<0> ( vtp[0] );
             obj->output.second = std::get<1> ( vtp[0] );
             return std::get<2> ( vtp[0] );
+            //}
         } else {
+            // if ( std::get<2> ( vtp[0] ) == INT_MAX ) {
+            //     obj->output.first = std::get<0> ( vtp[0] );
+            //     obj->output.second = std::get<1> ( vtp[0] );
+            //     return std::get<2> ( vtp[0] );
+            // } else {
             obj->output.first = std::get<0> ( vtp.back () );
             obj->output.second = std::get<1> ( vtp.back () );
             return std::get<2> ( vtp.back () );
+            //}
         }
         break;
     }
